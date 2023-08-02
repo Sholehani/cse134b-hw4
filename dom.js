@@ -88,86 +88,30 @@ function advWalk() {
 
     el = el.childNodes;
 
-    for(let node of el){ 
-        showAdvNode(node);
-        
-        childSet1 = node.childNodes;
-        for(let node2 of childSet1){
-            if(node2.nodeName != "#text" && node2.nodeName != "#comment"){
-                let newText = document.querySelectorAll("textarea");
-                newText[0].value += `| `;
-                showAdvNode(node2);
-            }
-
-            let childSet2 = node2.childNodes;
-            for(let node3 of childSet2){
-                if(node3.nodeName != "#text" && node3.nodeName != "#comment"){
-                    
-                newText = document.querySelectorAll("textarea");
-                newText[0].value += `  | `;
-                showAdvNode(node3);
-                }
-
-                let childSet3 = node3.childNodes;
-                for(let node4 of childSet3){
-                if(node4.nodeName != "#text" && node4.nodeName != "#comment"){
-                    
-                newText = document.querySelectorAll("textarea");
-                newText[0].value += `    | `;
-                showAdvNode(node4);
-                }
-
-                let childSet4 = node4.childNodes;
-                    for(let node5 of childSet4){
-                    if(node5.nodeName != "#text" && node5.nodeName != "#comment"){
-                    
-                    newText = document.querySelectorAll("textarea");
-                    newText[0].value += `      | `;
-                    showAdvNode(node5);
-                    }
-
-                    let childSet5 = node5.childNodes;
-                    for(let node6 of childSet5){
-                    if(node6.nodeName != "#text" && node6.nodeName != "#comment"){
-                    
-                    newText = document.querySelectorAll("textarea");
-                    newText[0].value += `        | `;
-                    showAdvNode(node6);
-                    }
-                    }
-                    }
-                }
-            }
-            
-        }
-
-    }
+    advWalkRe(el);
  
  }
 
-//  function AdvWalkRe(el){
-//     if(el == null){
-//         return;
-//     }
+ let count = 0;
+ function advWalkRe(el){
+    let newText = document.querySelectorAll("textarea");
     
-    
-//     showAdvNode(el);
-
-//     let parent = el;
-//     el = parent.childNodes;
-
-//     for(let node of el){ 
-//         if(node.nodeName != "#text" && node.nodeName != "#comment"){
-
+    for(let node of el){
+        let childSet = node.childNodes;
         
-        
-//         AdvWalkRe(node);
-//         let newText = document.querySelectorAll("textarea");
-//         newText[0].value += `| `;
-//         }
-//     }
-    
-//  }
+        if(node.nodeName != "#text" && node.nodeName != "#comment"){
+            for(let i=0; i<count; i++){
+                newText[0].value += `  `
+            }
+
+            newText[0].value += `| `;
+            showAdvNode(node);
+        }
+        count++;
+        advWalkRe(childSet);
+        count--;
+    }
+ }
 
 function showNode(el) {
     let nodeType = el.nodeType;
